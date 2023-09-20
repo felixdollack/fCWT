@@ -91,8 +91,58 @@ jobs:
 
   # ------------------------------------------------------------
 
-  test-python:
+  test-python-linux:
     runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r ./tests/test_requirements.txt
+
+      - name: Install fCWT
+        run: python setup.py install
+
+      - name: Run PyTest
+        run: pytest
+        working-directory: ./tests
+
+  # ------------------------------------------------------------
+
+  test-python-macos:
+    runs-on: macos-11
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r ./tests/test_requirements.txt
+
+      - name: Install fCWT
+        run: python setup.py install
+
+      - name: Run PyTest
+        run: pytest
+        working-directory: ./tests
+
+  # ------------------------------------------------------------
+
+  test-python-macos-arm:
+    runs-on: macos-12
 
     steps:
       - name: Checkout
