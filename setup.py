@@ -53,7 +53,7 @@ setup (ext_modules=[
                     'src/fcwt/fcwt_wrap.cxx'
                 ],
                 library_dirs = ['libs'],
-                include_dirs = ['src/fcwt','src',numpy_include],
+                include_dirs = ['src/fcwt','src','libs',numpy_include],
                 libraries = libraries,
                 extra_compile_args = comp_args,
                 extra_link_args = link_args
