@@ -522,8 +522,8 @@ void FCWT::cwt(float *pinput, int psize, complex<float>* poutput, Scales *scales
     _aligned_free(Ihat);
     _aligned_free(O1);
 #else
-    aligned_free(Ihat);
-    aligned_free(O1);
+    free(Ihat);
+    free(O1);
 #endif
 }
 
