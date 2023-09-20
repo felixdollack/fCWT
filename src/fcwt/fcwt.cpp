@@ -483,16 +483,15 @@ void FCWT::cwt(float *pinput, int psize, complex<float>* poutput, Scales *scales
     load_FFT_optimization_plan();
 
     // //Perform forward FFT on input signal
-    float *input;
+    float* input;
     if(complexinput) {
         input = (float*)calloc(newsize,sizeof(complex<float>));
         memcpy(input,pinput,sizeof(complex<float>)*size);
         p = fftwf_plan_dft_1d(newsize, (fftwf_complex*)input, Ihat, FFTW_FORWARD, FFTW_ESTIMATE);
     } else {
-        input = (float*)malloc(newsize*sizeof(float));
-        memset(input,0,newsize*sizeof(float));
+        input = (float*)calloc(newsize,sizeof(float));
         memcpy(input,pinput,sizeof(float)*size);
-        p = fftwf_plan_dft_r2c_1d(newsize, input, Ihat, FFTW_ESTIMATE);
+        p = fftwf_plan_dft_r2c_1d(newsize, &input[0], Ihat, FFTW_ESTIMATE);
     }
 
     fftwf_execute(p);
@@ -517,15 +516,15 @@ void FCWT::cwt(float *pinput, int psize, complex<float>* poutput, Scales *scales
         out = out + size;
     }
     
-    // //Cleanup
+    //Cleanup
     fftwf_destroy_plan(pinv);
-    #ifdef _WIN32
-        _aligned_free(Ihat);
-        _aligned_free(O1);
-    #else
-        free(Ihat);
-        free(O1);
-    #endif
+#ifdef _WIN32
+    _aligned_free(Ihat);
+    _aligned_free(O1);
+#else
+    aligned_free(Ihat);
+    aligned_free(O1);
+#endif
 }
 
 
