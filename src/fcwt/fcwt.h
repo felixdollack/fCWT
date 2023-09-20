@@ -33,6 +33,8 @@ limitations under the License.
   #define FCWT_LIBRARY_API
 #endif
 
+#include <cstring>
+#include <cassert>
 #include <complex>
 #include <iostream>
 
