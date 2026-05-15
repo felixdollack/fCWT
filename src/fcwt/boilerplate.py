@@ -63,7 +63,7 @@ def _plot(input, freqs, output, fs, f0, f1, fn):
 
 
     xTickPositions = np.  arange(0, input.size, fs * XTickInterval)   # For X, just stepping in increments is suitable
-    yTickPositions = np.linspace(0, fn,         num = YTickCount  )   # For Y, we want to ensure f0 and f1 are included as ticks.
+    yTickPositions = np.linspace(0, fn-1,       num = YTickCount  )   # For Y, we want to ensure f0 and f1 are included as ticks.
     
     xLabels  = np.arange(0, input.size/fs, XTickInterval)
 
@@ -85,7 +85,7 @@ def plot(input, fs, f0=0, f1=0, fn=0, nthreads=1, scaling="lin", fast=False, nor
     fn = fn if fn else 100
     freqs, output = cwt(input, fs, f0, f1, fn, nthreads=nthreads, scaling=scaling, fast=fast, norm=norm)
 
-    _plot(input, output, fs, f0, f1, fn)
+    _plot(input, freqs, output, fs, f0, f1, fn)
 
     
     
