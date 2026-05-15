@@ -38,6 +38,7 @@ limitations under the License.
 
 #include "fcwt.h"
 #include <cassert>
+#include <cstring>
 
 Morlet::Morlet(float bandwidth) {
     four_wavelen = 0.9876f;

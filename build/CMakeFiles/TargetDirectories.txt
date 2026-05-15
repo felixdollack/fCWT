@@ -1,0 +1,8 @@
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/fCWT.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/fCWT_example.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/edit_cache.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/rebuild_cache.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/list_install_components.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/install.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/install/local.dir
+/Users/felixdollack/Documents/fCWT/build/CMakeFiles/install/strip.dir
