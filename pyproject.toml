@@ -12,7 +12,8 @@ authors = [
 	{name="Lukas P.A. Arts"}
 ]
 dependencies = [
-	"numpy >=1.14.5"
+	"numpy >=1.14.5",
+	"matplotlib"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

@@ -37,6 +37,8 @@ limitations under the License.
 */
 
 #include "fcwt.h"
+#include <cassert>
+#include <cstring>
 
 Morlet::Morlet(float bandwidth) {
     four_wavelen = 0.9876f;
@@ -100,8 +102,8 @@ void Morlet::getWavelet(float scale, complex<float>* pwav, int pn) {
         pwav[t].imag(imag[t]);
     }
 	
-	delete real;
-	delete imag;
+	free(real);
+	free(imag);
 };
 
 //==============================================================//
@@ -403,9 +405,15 @@ void FCWT::convolve(fftwf_plan p, fftwf_complex *Ihat, fftwf_complex *O1, comple
         #endif
         memset(lastscalemem,0,sizeof(fftwf_complex)*newsize);
         
-        fftbased(p, Ihat, O1, (float*)lastscalemem, wav->mother, newsize, scale, wav->imag_frequency, wav->doublesided);
+        fftbased(p, Ihat, O1, (float*)lastscalemem, wav->mother, newsize, scale,
+                 wav->imag_frequency, wav->doublesided);
         if(use_normalization) fft_normalize((complex<float>*)lastscalemem, newsize);
         memcpy(out, (complex<float>*)lastscalemem, sizeof(complex<float>)*size);
+        #ifdef _WIN32
+            _aligned_free(lastscalemem);
+        #else
+            free(lastscalemem);
+        #endif
     } else {
         if(!out) {
             std::cout << "OUT NOT A POINTER" << std::endl;
