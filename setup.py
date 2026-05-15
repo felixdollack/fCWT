@@ -36,8 +36,13 @@ files = [
 files = files + files2
 
 if "macosx" in sysconfig.get_platform() or "darwin" in sysconfig.get_platform():
+    import platform
+    arch = platform.machine()
     libraries = ['fftw3fmac','fftw3f_ompmac']
-    comp_args = ["-mavx","-O3"]
+    if arch == 'arm64':
+        comp_args = ["-O3"]  # No AVX on ARM
+    else:
+        comp_args = ["-mavx","-O3"]  # x86_64 can use AVX
     link_args = ["-lomp"]
 
 if "linux" in sysconfig.get_platform():
@@ -53,7 +58,7 @@ setup (ext_modules=[
                     'src/fcwt/fcwt_wrap.cxx'
                 ],
                 library_dirs = ['libs'],
-                include_dirs = ['src/fcwt','src',numpy_include],
+                include_dirs = ['src/fcwt','src','libs',numpy_include],
                 libraries = libraries,
                 extra_compile_args = comp_args,
                 extra_link_args = link_args
